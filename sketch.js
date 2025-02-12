@@ -1,82 +1,58 @@
-let fft;
-let player;
-let audioInput;
-let rotationAngle = 0;
+//global for the controls and input 
+var controls = null;
+//store visualisations in a container
+var vis = null;
+//variable for the p5 sound object
+var sound = null;
+//variable for p5 fast fourier transform
+var fourier;
+
+function preload() {
+	sound = loadSound('assets/stomper_reggae_bit.mp3');
+}
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  
-  audioInput = new p5.AudioIn();
-  audioInput.start();
-  
-  fft = new p5.FFT(0.8, 64);
-  fft.setInput(audioInput);
-  
-  background(0);
-  colorMode(HSB);
+	 createCanvas(windowWidth, windowHeight, WEBGL);
+	 background(0);
+	 controls = new ControlsAndInput();
+
+	 //instantiate the fft object
+
+     fourier = new p5.FFT();
+     fourier.setInput(sound);
+	 sound.setVolume(0.5)
+
+	 //create a new visualisation container and add visualisations
+	 vis = new Visualisations();
+	 vis.add(new SphereVisual());
+	 vis.add(new Spectrum());
+	 vis.add(new WavePattern());
+	 vis.add(new Needles());
 }
 
 function draw() {
-  background(0, 20);
-  
-  
-  let spectrum = fft.analyze();
-  
-  
-  rotateX(PI/4);
-  rotationAngle += 0.005;
-  rotateY(rotationAngle);
-  
-  
-  let radius = 200;
-  let rows = 8;
-  let cols = spectrum.length / rows;
-  
-  for (let i = 0; i < rows; i++) {
-    let phi = map(i, 0, rows, 0, PI);
-    for (let j = 0; j < cols; j++) {
-      let theta = map(j, 0, cols, 0, TWO_PI);
-      
-      let spectrumIndex = i * cols + j;
-      let amp = spectrum[spectrumIndex];
-      let height = map(amp, 0, 256, 10, 100);
-      let hue = map(spectrumIndex, 0, spectrum.length, 0, 360);
-      
-      push();
-      
-      let x = radius * sin(phi) * cos(theta);
-      let y = radius * sin(phi) * sin(theta);
-      let z = radius * cos(phi);
-      
-      translate(x, y, z);
-      
-      
-      let rotation = createVector(x, y, z);
-      let angle = atan2(rotation.y, rotation.x);
-      let elevation = atan2(sqrt(rotation.x * rotation.x + rotation.y * rotation.y), rotation.z);
-      
-      rotateY(angle);
-      rotateX(elevation - PI/2);
-      
-      
-      fill(hue, 255, 255, 0.7);
-      stroke(hue, 255, 255);
-      strokeWeight(1);
-      box(20, 20, height);
-      
-      pop();
-    }
-  }
-  
-  
-  push();
-  stroke(255, 50);
-  strokeWeight(1);
-  noFill();
-  sphere(radius);
-  pop();
+	background(0);
+
+	translate(-width/2, -height/2);
+	//draw the selected visualisation
+	vis.selectedVisual.draw();
+	//draw the controls on top.
+	controls.draw();
 }
 
+function mouseClicked() {
+	controls.mousePressed();
+}
+
+function keyPressed() {
+	controls.keyPressed(keyCode);
+}
+
+//when the window has been resized. Resize canvas to fit 
+//if the visualisation needs to be resized call its onResize method
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+	resizeCanvas(windowWidth, windowHeight);
+	if (vis.selectedVisual.hasOwnProperty('onResize')) {
+		vis.selectedVisual.onResize();
+	}
 }
