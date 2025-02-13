@@ -9,6 +9,7 @@ var fourier;
 
 function preload() {
 	sound = loadSound('assets/stomper_reggae_bit.mp3');
+	font = loadFont('assets/Arial.ttf');
 }
 
 function setup() {

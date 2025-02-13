@@ -36,6 +36,7 @@ function ControlsAndInput() {
 		push();
 		fill("white");
 		stroke("black");
+		textFont(font);
 		strokeWeight(2);
 		textSize(34);
 
