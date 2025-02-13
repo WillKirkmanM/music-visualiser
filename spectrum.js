@@ -7,12 +7,13 @@ function Spectrum() {
 		noStroke();
 
 		for (var i = 0; i< spectrum.length; i++){
-			let ratio = i/spectrum.length;
+			let ratio = map(spectrum[i], 0, 255, 0, 1);
 			let colour = lerpColor(color("green"), color("red"), ratio);
 			fill(colour);
-			var x = map(i, 0, spectrum.length, 0, width);
-		    var h = -height + map(spectrum[i], 0, 255, height, 0);
-		    rect(x, height, width / spectrum.length, h );
+			
+			var y = map(i, 0, spectrum.length, 0, height);
+			var w = map(spectrum[i], 0, 255, 0, width);
+			rect(0, y, w, height / spectrum.length);
   		}
 	
 		pop();
