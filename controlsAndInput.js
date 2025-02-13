@@ -44,7 +44,7 @@ function ControlsAndInput() {
 		this.playbackButton.draw();
 		//only draw the menu if menu displayed is set to true.
 		if (this.menuDisplayed) {
-			text("Select a visualisation:", 100, 30);
+			text("Select a visualisation:", 100, 50);
 			this.menu();
 		}
 		pop();
@@ -53,6 +53,10 @@ function ControlsAndInput() {
 
 	this.menu = function() {
 		//draw out menu items for each visualisation
-		//???
+		for (let i = 0; i < vis.visuals.length; i++) {
+			let name = (i + 1) + ": " + vis.visuals[i].name
+			let y = 55 + 40  * (i + 1);
+			text(name, 100, y);
+		}
 	};
 }
