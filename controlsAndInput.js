@@ -12,9 +12,10 @@ function ControlsAndInput() {
 		if (this.playbackButton.hitCheck()) {
 			return;
 		}
-
-		let fs = fullscreen();
-		fullscreen(fs)
+		else {
+			let fs = fullscreen();
+			fullscreen(!fs);
+		}
 	};
 
 	//responds to keyboard presses
