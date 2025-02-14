@@ -36,23 +36,24 @@ function Needles() {
 		for (var i = 0; i < this.plotsDown; i++) {
 			for (var j = 0; j < this.plotsAcross; j++) {
 
-				/*calculate the size of the plots
-				var x = ??
-				var y = ??
-				var w = ??
-				var h = ??
-				*/
+				// calculate the size of the plots
+				var x = j * this.plotWidth + this.pad / 2;
+                var y = i * this.plotHeight + this.pad / 2;
+                var w = this.plotWidth - this.pad;
+                var h = this.plotHeight - this.pad;
 
 				//draw a rectangle at that location and size
 				rect(x, y, w, h);
 
 				//add on the ticks
-				// ??
+				var centreX = x + w / 2;
+                var bottomY = y + h - this.pad / 2;
+                this.ticks(centreX, bottomY, this.frequencyBins[currentBin]);
 
 				var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
 
 				//add the needle
-				// ??
+				this.needle(energy, centreX, bottomY);
 
 				currentBin++;
 			}
@@ -98,7 +99,8 @@ function Needles() {
 		//draw the semi circle for the botttom of the needle
 		arc(0, 0, 20, 20, PI, 2 * PI);
 		textAlign(CENTER);
-		textSize(12);
+		textFont(font);
+		textSize(this.plotHeight / 20);
 		text(freqLabel, 0, -(this.plotHeight / 2));
 
 		for (var i = 0; i < 9; i++) {
@@ -109,7 +111,7 @@ function Needles() {
 
 			var y = (this.dialRadius) * sin(nextTickAngle);
 			var y1 = (this.dialRadius - 5) * sin(nextTickAngle);
-
+			strokeWeight(2);
 			line(x, y, x1, y1);
 			nextTickAngle += PI / 10;
 		}

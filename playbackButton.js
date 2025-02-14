@@ -24,10 +24,11 @@ function PlaybackButton() {
 	//checks for clicks on the button, starts or pauses playabck.
 	//@returns true if clicked false otherwise.
 	this.hitCheck = function() {
-		if (mouseX > this.x
-            && mouseX < this.x + this.width
-            && mouseY > this.y
-            && mouseY < this.y + this.height) {
+		let hitbox = 15;
+		if (mouseX > this.x - hitbox
+            && mouseX < this.x + this.width + hitbox
+            && mouseY > this.y - hitbox
+            && mouseY < this.y + this.height + hitbox) {
 			if (sound.isPlaying()) {
     			sound.pause();
   			} else {
