@@ -3,6 +3,9 @@
 </p>
 <h1 align="center">Music Visualiser</h1>
 
+<h4 align="center">
+  <a href="https://willkirkmanm.github.io/music-visualiser/">Visual Demo</a>
+</h4>
 
 ![image](https://github.com/user-attachments/assets/845b9a55-5a56-4ec6-a888-13ca15cdf69a)
 
