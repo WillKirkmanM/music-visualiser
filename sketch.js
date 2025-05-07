@@ -56,4 +56,5 @@ function windowResized() {
 	if (vis.selectedVisual.hasOwnProperty('onResize')) {
 		vis.selectedVisual.onResize();
 	}
+	controls.onResize();
 }
