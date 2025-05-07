@@ -7,6 +7,12 @@ function ControlsAndInput() {
 	//playback button displayed in the top left of the screen
 	this.playbackButton = new PlaybackButton();
 
+	//volume slider
+	this.volumeSlider = createSlider(0, 1, 0.5, 0.01);
+	this.volumeSlider.position(20, height - 20);
+	this.volumeSlider.style('width', '150px');
+	this.volumeSlider.hide();
+
 	//make the window fullscreen or revert to windowed
 	this.mousePressed = function() {
 		if (this.playbackButton.hitCheck()) {
@@ -48,10 +54,17 @@ function ControlsAndInput() {
 			text("Select a visualisation:", 100, 45);
 			this.menu();
 		}
+		else{
+			this.volumeSlider.hide();
+		}
 		pop();
 
+		let volume = this.volumeSlider.value();
+		if (sound && typeof sound.setVolume === 'function'){
+			sound.setVolume(volume);
+		}
 	};
-
+	
 	this.menu = function() {
 		//draw out menu items for each visualisation
 		for (let i = 0; i < vis.visuals.length; i++) {
@@ -59,5 +72,11 @@ function ControlsAndInput() {
 			let y = 50 + 40  * (i + 1);
 			text(name, 100, y);
 		}
+		text("Volume", this.volumeSlider.x, this.volumeSlider.y - 10);
+		this.volumeSlider.show();
+	};
+
+	this.onResize = function () {
+		this.volumeSlider.position(20, height - 40);
 	};
 }
