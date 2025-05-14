@@ -6,11 +6,14 @@ var vis = null;
 var sound = null;
 //variable for p5 fast fourier transform
 var fourier;
+let music = [["Stomper Reggae", "music/stomper_reggae_bit.mp3"]];
+let musicIndex = 0;
 
 function preload() {
-	sound = loadSound('music/stomper_reggae_bit.mp3');
 	font = loadFont('assets/Arial.ttf');
+	sound = loadSound(music[musicIndex][1]);
 }
+
 
 function setup() {
 	 createCanvas(windowWidth, windowHeight, WEBGL);
