@@ -1,7 +1,7 @@
 //constructor function to draw a
 function Needles() {
 	//name of the visualisation
-	this.name = "needles";
+	this.name = "Needles";
 
 	//how large is the arc of the needle plot.
 	var minAngle = PI + PI / 10;

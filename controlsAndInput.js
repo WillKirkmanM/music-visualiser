@@ -45,7 +45,7 @@ function ControlsAndInput() {
 		stroke("black");
 		textFont(font);
 		strokeWeight(2);
-		textSize(34);
+		textSize(30);
 
 		//playback button
 		this.playbackButton.draw();
@@ -69,7 +69,7 @@ function ControlsAndInput() {
 		//draw out menu items for each visualisation
 		for (let i = 0; i < vis.visuals.length; i++) {
 			let name = (i + 1) + ": " + vis.visuals[i].name
-			let y = 50 + 40  * (i + 1);
+			let y = 45 + 35  * (i + 1);
 			text(name, 100, y);
 		}
 		text("Volume", this.volumeSlider.x, this.volumeSlider.y - 10);
