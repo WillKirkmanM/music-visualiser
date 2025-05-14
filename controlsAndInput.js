@@ -58,7 +58,7 @@ function ControlsAndInput() {
 			this.volumeSlider.hide();
 		}
 		pop();
-
+		
 		let volume = this.volumeSlider.value();
 		if (sound && typeof sound.setVolume === 'function'){
 			sound.setVolume(volume);
@@ -73,9 +73,10 @@ function ControlsAndInput() {
 			text(name, 100, y);
 		}
 		text("Volume", this.volumeSlider.x, this.volumeSlider.y - 10);
+		text("Currently playing: " + music[musicIndex][0], width/2 - 175, height - 40);
 		this.volumeSlider.show();
 	};
-
+	
 	this.onResize = function () {
 		this.volumeSlider.position(20, height - 40);
 	};
